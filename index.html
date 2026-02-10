@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Someone Special ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: #ffe6e6;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid #ff4d6d;
+            margin-bottom: 40px;
+        }
+        
+        .hearts-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 77, 109, 0.1);
+            font-size: 24px;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            color: #ff4d6d;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 0 #ffcccc;
+        }
+        
+        .message {
+            background-color: #fff0f3;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 40px;
+            border-left: 10px solid #ff4d6d;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .message p {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .emoji {
+            font-size: 2.2rem;
+            margin: 0 5px;
+        }
+        
+        .question {
+            font-size: 3rem;
+            color: #ff3366;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 25px 60px;
+            font-size: 2.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        
+        .btn-no {
+            background-color: #4a4a4a;
+            color: white;
+        }
+        
+        .btn-wait {
+            background-color: #ff9933;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-yes:hover {
+            background-color: #ff3355;
+        }
+        
+        .btn-no:hover {
+            background-color: #333333;
+        }
+        
+        .btn-wait:hover {
+            background-color: #e68a00;
+        }
+        
+        .envelope-section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+            border: 5px solid #ff4d6d;
+            display: none;
+        }
+        
+        .envelope-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .envelope-section h2 {
+            color: #ff4d6d;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .envelope-section p {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .envelope-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 40px auto;
+            cursor: pointer;
+        }
+        
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ffccd5;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+        
+        .envelope:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 300px solid transparent;
+            border-right: 300px solid transparent;
+            border-top: 200px solid #ff8fa3;
+            transform-origin: top;
+            transition: transform 1s ease;
+            z-index: 3;
+        }
+        
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+        
+        .heart-button {
+            width: 120px;
+            height: 120px;
+            background-color: #ff4d6d;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 4rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 25px rgba(255, 77, 109, 0.4);
+            z-index: 4;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .letter-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 80vw;
+            max-width: 800px;
+            height: 80vh;
+            max-height: 700px;
+            background: linear-gradient(to bottom, #fff9e6 0%, #fff0cc 100%);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+            border: 3px solid #e6c8a0;
+            overflow: hidden;
+            padding: 40px;
+            transition: transform 0.8s ease;
+        }
+        
+        .letter-container.show {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+            animation: letterPop 0.8s ease;
+        }
+        
+        @keyframes letterPop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            70% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .letter-content {
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 20px;
+            text-align: left;
+        }
+        
+        .letter-content::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .letter-content::-webkit-scrollbar-track {
+            background: #fff0cc;
+            border-radius: 5px;
+        }
+        
+        .letter-content::-webkit-scrollbar-thumb {
+            background: #ff8fa3;
+            border-radius: 5px;
+        }
+        
+        .letter-date {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            color: #8b5a2b;
+            font-style: italic;
+            text-align: right;
+            margin-bottom: 40px;
+        }
+        
+        .letter-salutation {
+            font-family: 'Courier New', monospace;
+            font-size: 36px;
+            color: #5a3921;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        
+        .letter-body {
+            font-family: 'Courier New', monospace;
+            font-size: 28px;
+            color: #5a3921;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        
+        .letter-body p {
+            margin-bottom: 30px;
+            text-indent: 40px;
+        }
+        
+        .romantic-text {
+            color: #8b5a2b;
+            font-style: italic;
+            background-color: rgba(255, 182, 193, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ff8fa3;
+            margin: 20px 0;
+        }
+        
+        .letter-closing {
+            font-family: 'Courier New', monospace;
+            font-size: 36px;
+            color: #5a3921;
+            font-weight: bold;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+        
+        .letter-signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 56px;
+            color: #ff4d6d;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-align: right;
+        }
+        
+        .letter-ps {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            color: #8b5a2b;
+            font-style: italic;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #e6c8a0;
+        }
+        
+        .close-letter-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .close-letter-btn:hover {
+            background: #ff3355;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* SMALLER WAIT POPUP - MOBILE FRIENDLY */
+        .wait-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 85%;
+            max-width: 500px;
+            min-height: 300px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            border: 4px solid #ff9933;
+            overflow: hidden;
+            padding: 30px;
+            transition: transform 0.5s ease;
+        }
+        
+        .wait-popup.show {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transform: translate(-50%, -50%) scale(1);
+            animation: popupShow 0.5s ease;
+        }
+        
+        @keyframes popupShow {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .wait-popup h2 {
+            color: #ff9933;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.3;
+        }
+        
+        .wait-popup p {
+            font-size: 1.6rem;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .wait-popup .emoji-big {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 15px 0;
+            line-height: 1.2;
+        }
+        
+        .close-wait-btn {
+            display: block;
+            margin: 25px auto 0;
+            padding: 15px 30px;
+            font-size: 1.6rem;
+            background-color: #ff9933;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+        }
+        
+        .close-wait-btn:hover {
+            background-color: #e68a00;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .popup-overlay.show {
+            display: block;
+        }
+        
+        .back-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 1.8rem;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .back-btn.show {
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #333333;
+            transform: translateY(-3px);
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            .container, .envelope-section {
+                max-width: 95%;
+                padding: 25px;
+            }
+            
+            h1, .envelope-section h2 { font-size: 2.5rem; }
+            .message p { font-size: 1.5rem; }
+            .question { font-size: 2.2rem; margin-bottom: 30px; }
+            .btn { padding: 18px 40px; font-size: 1.8rem; }
+            .buttons { gap: 20px; }
+            
+            .envelope-container {
+                width: 90%;
+                height: 250px;
+                max-width: 400px;
+            }
+            
+            .envelope-flap {
+                border-left: 50% solid transparent;
+                border-right: 50% solid transparent;
+                border-top: 60% solid #ff8fa3;
+            }
+            
+            .envelope-section p {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+            
+            .letter-container {
+                width: 95vw;
+                height: 85vh;
+                padding: 25px;
+            }
+            
+            .letter-salutation {
+                font-size: 28px;
+                margin-bottom: 25px;
+            }
+            
+            .letter-body {
+                font-size: 20px;
+                line-height: 1.6;
+            }
+            
+            .romantic-text {
+                font-size: 18px;
+                padding: 8px 15px;
+            }
+            
+            .letter-closing {
+                font-size: 28px;
+                margin-top: 40px;
+            }
+            
+            .letter-signature {
+                font-size: 42px;
+            }
+            
+            /* Mobile wait popup */
+            .wait-popup {
+                width: 90%;
+                max-width: 400px;
+                padding: 25px;
+                min-height: 280px;
+            }
+            
+            .wait-popup h2 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+            
+            .wait-popup p {
+                font-size: 1.4rem;
+                margin-bottom: 12px;
+            }
+            
+            .wait-popup .emoji-big {
+                font-size: 2rem;
+                margin: 12px 0;
+            }
+            
+            .close-wait-btn {
+                padding: 12px 25px;
+                font-size: 1.5rem;
+                min-width: 180px;
+                margin-top: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container, .envelope-section { padding: 20px; }
+            h1, .envelope-section h2 { font-size: 2rem; }
+            .message { padding: 20px; }
+            .message p { font-size: 1.3rem; }
+            .question { font-size: 1.8rem; margin-bottom: 25px; }
+            .buttons { gap: 15px; flex-direction: column; }
+            .btn { padding: 15px 30px; font-size: 1.6rem; width: 100%; max-width: 280px; }
+            
+            .envelope-container {
+                width: 95%;
+                height: 200px;
+                max-width: 320px;
+            }
+            
+            .heart-button {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
+            .envelope-section p {
+                font-size: 1.4rem;
+            }
+            
+            .letter-container {
+                width: 98vw;
+                height: 90vh;
+                padding: 20px;
+            }
+            
+            .letter-salutation {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            
+            .letter-body {
+                font-size: 18px;
+                line-height: 1.5;
+            }
+            
+            .romantic-text {
+                font-size: 16px;
+                padding: 6px 12px;
+                margin: 15px 0;
+            }
+            
+            .letter-closing {
+                font-size: 24px;
+                margin-top: 30px;
+            }
+            
+            .letter-signature {
+                font-size: 36px;
+            }
+            
+            .letter-ps {
+                font-size: 18px;
+            }
+            
+            /* Small phone wait popup */
+            .wait-popup {
+                width: 92%;
+                max-width: 350px;
+                padding: 20px;
+                min-height: 260px;
+            }
+            
+            .wait-popup h2 {
+                font-size: 1.8rem;
+                margin-bottom: 12px;
+            }
+            
+            .wait-popup p {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+            
+            .wait-popup .emoji-big {
+                font-size: 1.8rem;
+                margin: 10px 0;
+            }
+            
+            .close-wait-btn {
+                padding: 10px 20px;
+                font-size: 1.4rem;
+                min-width: 160px;
+                margin-top: 15px;
+            }
+            
+            .back-btn {
+                font-size: 1.5rem;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts-bg" id="heartsBg"></div>
+        
+        <div class="content">
+            <h1>To Someone Special ❤️</h1>
+            
+            <div class="message">
+                <p>Every time I see you,</p>
+                <p>my heart feels happy.</p>
+                <p>You bring sunshine to my days <span class="emoji">🌞</span></p>
+                <p>Your friendship means so much <span class="emoji">🥰</span></p>
+                <p>You're someone very special <span class="emoji">💖</span></p>
+            </div>
+            
+            <div class="question">Would you consider being my Valentine?</div>
+            
+            <div class="buttons">
+                <button class="btn btn-yes" id="yesBtn">YES</button>
+                <button class="btn btn-wait" id="waitBtn">LET'S WAIT</button>
+                <button class="btn btn-no" id="noBtn">NO</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="envelope-section" id="envelopeSection">
+        <h2>Thank You! 😊</h2>
+        <p>I'm so happy you'd consider it! I really value our friendship.</p>
+        
+        <div class="envelope-container" id="envelopeClickable">
+            <div class="envelope" id="envelope">
+                <div class="envelope-flap"></div>
+                <div class="heart-button">❤️</div>
+            </div>
+            <p style="margin-top: 280px; font-size: 1.6rem; color: #666; font-style: italic;">Click the envelope to open the letter</p>
+        </div>
+        
+        <button class="back-btn" id="backBtn">← Back to Question</button>
+    </div>
+    
+    <div class="letter-container" id="letterContainer">
+        <button class="close-letter-btn" id="closeLetterBtn">✕</button>
+        <div class="letter-content">
+            <div class="letter-date">February 14, 2026</div>
+            <div class="letter-salutation">My Dearest Marija,</div>
+            
+            <div class="letter-body">
+                <p>As I sit down to write this letter, my heart is filled with so many emotions that words can hardly capture. From the moment we met, you've brought a special kind of light into my life that I never knew I was missing.</p>
+                
+                <div class="romantic-text">
+                    There's something about you that makes my heart skip a beat. The way your eyes sparkle when you laugh, the sound of your voice, the kindness in your soul - these are things that have slowly captured my heart without me even realizing it.
+                </div>
+                
+                <p>Our friendship means the world to me, but I'd be lying if I said my feelings haven't grown into something deeper. Every moment we spend together feels special, whether we're talking for hours or just sitting in comfortable silence.</p>
+                
+                <div class="romantic-text">
+                    I find myself thinking about you at the most random moments - wondering how your day is going, remembering something funny you said, or just appreciating the wonderful person you are. You have a way of making ordinary moments feel extraordinary.
+                </div>
+                
+                <p>I understand completely if you need time, and I respect whatever pace feels right for you. What we have is precious, whether it remains as friendship or grows into something more. Your comfort and happiness mean everything to me.</p>
+                
+                <div class="romantic-text">
+                    I want you to know that I see you - not just the amazing friend you are, but the beautiful, kind, and incredible person that you are. You deserve all the happiness in the world, and I hope I can be part of bringing that to you, in whatever way feels right.
+                </div>
+                
+                <p>No matter what the future holds, I'm grateful for you. Thank you for being in my life, for your friendship, and for being exactly who you are.</p>
+            </div>
+            
+            <div class="letter-closing">With all my heart,</div>
+            <div class="letter-signature">Someone who cares about you deeply</div>
+            
+            <div class="letter-ps">P.S. Every time I see your name pop up on my phone, I can't help but smile. You have that effect on me.</div>
+        </div>
+    </div>
+    
+    <div class="popup-overlay" id="popupOverlay"></div>
+    
+    <div class="wait-popup" id="waitPopup">
+        <h2>Thank You For Being Honest 🤝</h2>
+        
+        <div class="emoji-big">⏳❤️😊</div>
+        
+        <p>I really appreciate your honesty and I respect your feelings completely.</p>
+        
+        <p>I value our friendship more than anything, and I'm happy to wait until you feel ready.</p>
+        
+        <p>No pressure, no expectations - just continuing to enjoy each other's company as friends.</p>
+        
+        <button class="close-wait-btn" id="closeWaitBtn">OK, I Understand</button>
+    </div>
+
+    <script>
+        const heartsBg = document.getElementById('heartsBg');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const waitBtn = document.getElementById('waitBtn');
+        const envelopeSection = document.getElementById('envelopeSection');
+        const envelope = document.getElementById('envelope');
+        const envelopeClickable = document.getElementById('envelopeClickable');
+        const letterContainer = document.getElementById('letterContainer');
+        const closeLetterBtn = document.getElementById('closeLetterBtn');
+        const backBtn = document.getElementById('backBtn');
+        const waitPopup = document.getElementById('waitPopup');
+        const closeWaitBtn = document.getElementById('closeWaitBtn');
+        const popupOverlay = document.getElementById('popupOverlay');
+        
+        let noClicks = 0;
+        let yesSize = 1;
+        
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.top = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+            heartsBg.appendChild(heart);
+        }
+        
+        noBtn.addEventListener('click', function() {
+            noClicks++;
+            
+            yesSize += 0.3;
+            yesBtn.style.transform = `scale(${yesSize})`;
+            waitBtn.style.transform = `scale(${yesSize})`;
+            
+            const newWidth = yesBtn.offsetWidth * 1.1;
+            const newHeight = yesBtn.offsetHeight * 1.1;
+            yesBtn.style.width = `${newWidth}px`;
+            yesBtn.style.height = `${newHeight}px`;
+            waitBtn.style.width = `${newWidth}px`;
+            waitBtn.style.height = `${newHeight}px`;
+            
+            if (noClicks >= 5) {
+                noBtn.style.display = 'none';
+            }
+            
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+        
+        yesBtn.addEventListener('click', function() {
+            document.querySelector('.container').style.display = 'none';
+            envelopeSection.classList.add('show');
+            backBtn.classList.add('show');
+            
+            setTimeout(() => {
+                envelope.classList.add('open');
+            }, 500);
+        });
+        
+        waitBtn.addEventListener('click', function() {
+            waitPopup.classList.add('show');
+            popupOverlay.classList.add('show');
+        });
+        
+        closeWaitBtn.addEventListener('click', function() {
+            waitPopup.classList.remove('show');
+            popupOverlay.classList.remove('show');
+        });
+        
+        popupOverlay.addEventListener('click', function() {
+            waitPopup.classList.remove('show');
+            popupOverlay.classList.remove('show');
+        });
+        
+        backBtn.addEventListener('click', function() {
+            envelopeSection.classList.remove('show');
+            document.querySelector('.container').style.display = 'block';
+            backBtn.classList.remove('show');
+            letterContainer.classList.remove('show');
+            envelope.classList.remove('open');
+        });
+        
+        envelopeClickable.addEventListener('click', function() {
+            letterContainer.classList.add('show');
+        });
+        
+        closeLetterBtn.addEventListener('click', function() {
+            letterContainer.classList.remove('show');
+        });
+        
+        letterContainer.addEventListener('click', function(e) {
+            if (e.target === letterContainer) {
+                letterContainer.classList.remove('show');
+            }
+        });
+        
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && waitPopup.classList.contains('show')) {
+                waitPopup.classList.remove('show');
+                popupOverlay.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
